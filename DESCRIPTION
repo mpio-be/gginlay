@@ -1,0 +1,20 @@
+Package: gginlay
+Title:Add inlays on a ggplot interactively.
+Version: 0.0.0.9000
+Authors@R: 
+    person("Mihai", "Valcu", , "Mihai.Valcu@bi.mpg.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6907-7802"))
+Description: This mini package utilizes a shiny user interface to position images at any desired location on a ggplot.
+Depends:
+    R (>= 3.0.0),
+    shiny,
+    ggplot2
+Imports:
+    methods,
+    patchwork
+Sugests:
+    devtools
+License: GPL (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

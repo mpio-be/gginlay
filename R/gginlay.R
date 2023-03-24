@@ -10,8 +10,10 @@
 
 gginlay <- function(g, p) {
 
-    ui <- grid_page(
+    fnargs = as.list(match.call(expand.dots = FALSE))
 
+    ui <- grid_page(
+      theme = bs_theme(version = 5, bootswatch = "simplex"), 
       layout = c(
         ".       topbar",
         "leftbar plotarea", 
@@ -71,7 +73,7 @@ gginlay <- function(g, p) {
         ) 
         ), 
 
-        grid_card_text(area = "results", textOutput("inlayInfo"))
+        grid_card_text(area = "results", uiOutput("inlayInfo"))
    
     )
 
@@ -95,17 +97,20 @@ gginlay <- function(g, p) {
         }) |>
         bindEvent(list(input$lr, input$bt))
         
+      output$inlayInfo <- renderUI({
 
-
-
-
-      output$inlayInfo <- renderText({
-
-        paste(
-          'patchwork::inset_element("your_inset",',
-          input$lr[1],",", input$bt[1],",",input$lr[2],",",input$bt[2],
-          ")"
+         o = paste(
+          fnargs$g, "+<br>",
+          'patchwork::inset_element(', fnargs$p, ",",
+          input$lr[1], ",", input$bt[1], ",", input$lr[2], ",", input$bt[2],
+          ',align_to = "plot"',
+          ")<br>"
         )
+        
+        o |>
+          HTML() |>
+          tags$code()
+        
 
 
       }) |> bindEvent(list(input$lr, input$bt))

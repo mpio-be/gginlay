@@ -1,10 +1,13 @@
 #' gginlay
-#' gginlay
+#' Add Inlays on a ggplot Interactively.
+#' @param g a ggplot object
+#' @param p an inlay object supported by [patchwork::inset_element()]
 #' @export
 #' @examples
 #' g = ggplot(data=iris,aes(y=Sepal.Width, x= Species)) +
 #'     geom_boxplot()
 #' versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> jpeg::readJPEG(native = TRUE)
+#' setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(native = TRUE)
 #' gginlay(g, versicolor)
 
 
@@ -12,12 +15,14 @@ gginlay <- function(g, p) {
 
     fnargs = as.list(match.call(expand.dots = FALSE))
 
+    if(missing(p)) p_missing = TRUE
+
     ui <- grid_page(
       theme = bs_theme(version = 5, bootswatch = "simplex"), 
       layout = c(
-        ".       topbar",
-        "leftbar plotarea", 
-        "results results"
+        ".       topbar    controls",
+        "leftbar plotarea  controls", 
+        "results results   controls"
       ),
       row_sizes = c(
         "100px",
@@ -26,7 +31,8 @@ gginlay <- function(g, p) {
       ),
       col_sizes = c(
         "100px",
-        "500px"
+        "450px",
+        "200px"
       ),
 
       gap_size = "0px", 
@@ -42,8 +48,8 @@ gginlay <- function(g, p) {
           margin = 0.02,
           min = 0,
           max = 1,
-          value = c(0.2, 0.4),
-          step = 0.01,
+          value = c(0.25,0.75),
+          step = 0.001,
           color = "#035f94"
         ) 
         
@@ -66,14 +72,53 @@ gginlay <- function(g, p) {
             margin = 0.02,
             min = 0,
             max = 1,
-            value = c(0.2, 0.4),
-            step = 0.01,
+            value = c(0.25,0.75),
+            step = 0.001,
             color = "#e9bc40"
           ) 
         ) 
         ), 
 
-        grid_card_text(area = "results", uiOutput("inlayInfo"))
+      grid_card_text(area = "results", uiOutput("inlayInfo")), 
+
+      grid_card(
+        area = "controls",
+
+        card_header("<i>inset_element()</i><br>arguments:" |> HTML()),
+        card_body_fill(
+          radioButtons(
+            inputId = "align_to",
+            label = "align_to:",
+            choices = c("panel", "plot", "full")
+          ), 
+
+        checkboxInput(
+          inputId = "on_top",
+          label = "on_top:",
+          value = TRUE
+        ), 
+        
+        checkboxInput(
+          inputId = "ignore_tag",
+          label = "ignore_tag:",
+          value = TRUE
+        )
+
+
+        ),
+        
+        card_header("Inlay object:" |> HTML()),
+        card_body_fill(
+
+          "Show inlay:",
+          switchInput(
+            inputId = "show_inlay"
+          )
+
+        )
+      
+      )
+
    
     )
 
@@ -84,18 +129,29 @@ gginlay <- function(g, p) {
       
 
         output$plotarea <- renderPlot({
-          g + theme(
-            plot.margin = margin(t = 0,r = 0,b = 0,l = 0)) + 
+
+          if(input$show_inlay) # TODO only for rasters
+            p1 =  empty_ggplot(p) else p1 = p
+ 
+          g = g + theme(plot.margin = margin(t = 0,r = 0,b = 0,l = 0)) 
+
+          if (!input$on_top) g = g + theme(panel.background = element_blank())
+
+          g = g + patchwork::inset_element(p1,
+              align_to = input$align_to,
+              on_top   = input$on_top,
+              left     = input$lr[1],
+              right    = input$lr[2],
+              bottom   = input$bt[1],
+              top      = input$bt[2]
+            )
           
-          patchwork::inset_element(p,
-            align_to = "plot", 
-            left   = input$lr[1],
-            right  = input$lr[2],
-            bottom = input$bt[1],
-            top    = input$bt[2]
-          )
+          if(!input$ignore_tag)  g = g + plot_annotation(tag_levels = "A")
+
+          plot(g)
+                    
         }) |>
-        bindEvent(list(input$lr, input$bt))
+        bindEvent(list(input$lr, input$bt, input$align_to, input$on_top, input$ignore_tag, input$show_inlay))
         
       output$inlayInfo <- renderUI({
 
@@ -103,8 +159,10 @@ gginlay <- function(g, p) {
           fnargs$g, "+<br>",
           'patchwork::inset_element(', fnargs$p, ",",
           input$lr[1], ",", input$bt[1], ",", input$lr[2], ",", input$bt[2],
-          ',align_to = "plot"',
-          ")<br>"
+          ',align_to =', shQuote(input$align_to), 
+          ',on_top =', input$on_top,
+          'ignore_tag =', input$ignore_tag,
+          ")"
         )
         
         o |>
@@ -113,7 +171,7 @@ gginlay <- function(g, p) {
         
 
 
-      }) |> bindEvent(list(input$lr, input$bt))
+      }) |> bindEvent(list(input$lr, input$bt, input$align_to,input$on_top,input$ignore_tag))
     
     }
 

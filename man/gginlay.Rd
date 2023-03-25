@@ -3,17 +3,23 @@
 \name{gginlay}
 \alias{gginlay}
 \title{gginlay
-gginlay}
+Add Inlays on a ggplot Interactively.}
 \usage{
 gginlay(g, p)
 }
+\arguments{
+\item{g}{a ggplot object}
+
+\item{p}{an inlay object supported by \code{\link[patchwork:inset_element]{patchwork::inset_element()}}}
+}
 \description{
 gginlay
-gginlay
+Add Inlays on a ggplot Interactively.
 }
 \examples{
 g = ggplot(data=iris,aes(y=Sepal.Width, x= Species)) +
     geom_boxplot()
 versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> jpeg::readJPEG(native = TRUE)
+setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(native = TRUE)
 gginlay(g, versicolor)
 }

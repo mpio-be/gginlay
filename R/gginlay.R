@@ -4,11 +4,27 @@
 #' @param p an inlay object supported by [patchwork::inset_element()]
 #' @export
 #' @examples
+#' if(interactive()) {
 #' g = ggplot(data=iris,aes(y=Sepal.Width, x= Species)) +
 #'     geom_boxplot()
+#' 
 #' versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> jpeg::readJPEG(native = TRUE)
 #' setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(native = TRUE)
+#' 
 #' gginlay(g, versicolor)
+#' gginlay(g, setosa)
+#' 
+#' g2 = ggplot(cars, aes(y = speed, x = dist)) + geom_smooth()
+#' gginlay(g, g2)
+#' 
+#' g = ggplot(data=iris,aes(y=Sepal.Width, x= Petal.Length )) +
+#'     facet_wrap(~Species) +  
+#'     geom_point()
+#' 
+#' gginlay(g, versicolor)
+
+#' }
+
 
 
 gginlay <- function(g, p) {
@@ -131,7 +147,7 @@ gginlay <- function(g, p) {
         output$plotarea <- renderPlot({
 
           if(input$show_inlay) # TODO only for rasters
-            p1 =  empty_ggplot(p) else p1 = p
+            p1 =  emptyGG(p) else p1 = p
  
           g = g + theme(plot.margin = margin(t = 0,r = 0,b = 0,l = 0)) 
 

@@ -17,9 +17,23 @@ gginlay
 Add Inlays on a ggplot Interactively.
 }
 \examples{
+if(interactive()) {
 g = ggplot(data=iris,aes(y=Sepal.Width, x= Species)) +
     geom_boxplot()
+
 versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> jpeg::readJPEG(native = TRUE)
 setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(native = TRUE)
+
 gginlay(g, versicolor)
+gginlay(g, setosa)
+
+g2 = ggplot(cars, aes(y = speed, x = dist)) + geom_smooth()
+gginlay(g, g2)
+
+g = ggplot(data=iris,aes(y=Sepal.Width, x= Petal.Length )) +
+    facet_wrap(~Species) +  
+    geom_point()
+
+gginlay(g, versicolor)
+}
 }

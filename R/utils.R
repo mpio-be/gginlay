@@ -1,20 +1,31 @@
 
 #' @export
-empty_ggplot <- function(r) { # r is a nativeRaster
+emptyGG <- function(x) UseMethod("emptyGG")
+
+#' @export
+emptyGG.default <- function(x, ...) {
+  warning(paste(
+    "emptyGG does not know how to handle object of class ",
+    class(x)[length(class(x))]
+  ))
+}
+
+
+#' @export
+emptyGG.nativeRaster <- function(r, keep.ratio = TRUE) { 
 
   x = data.frame(
     y = seq(0, nrow(r), length.out = 10),
     x = seq(0, ncol(r), length.out = 10)
   )
 
-  ggplot(x) +
+  g = ggplot(x) +
     geom_line(aes(y = y, x = x), color = "red", linewidth = 0.2) +
     geom_line(aes(y = rev(y), x = x), color = "red", linewidth = 0.2) +
     xlab(NULL) +
     ylab(NULL) +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
-    coord_fixed() +
     theme_linedraw() +
   
     theme(
@@ -29,6 +40,10 @@ empty_ggplot <- function(r) { # r is a nativeRaster
       axis.text.y = element_blank()
     )
 
-
+  if (keep.ratio) {
+    g = g + coord_fixed()
+  }
+  
+  g
 
 }

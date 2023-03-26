@@ -19,4 +19,4 @@ gginlay(your_ggplot, your_inlay)
 ```
 
 
-![gginlay](gginlay.gif)
+![gginlay](gginlay_shiny.gif)

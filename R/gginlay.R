@@ -14,6 +14,9 @@
 #' gginlay(g, versicolor)
 #' gginlay(g, setosa)
 #' 
+#' img = matrix(0:1, ncol = 3, nrow = 2) |> as.raster()
+#' gginlay(g, img)
+#' 
 #' g2 = ggplot(cars, aes(y = speed, x = dist)) + geom_smooth()
 #' gginlay(g, g2)
 #' 
@@ -90,7 +93,7 @@ gginlay <- function(g, p) {
             max = 1,
             value = c(0.25,0.75),
             step = 0.001,
-            color = "#e9bc40"
+            color = "#24828f"
           ) 
         ) 
         ), 
@@ -126,7 +129,7 @@ gginlay <- function(g, p) {
         card_header("Inlay object:" |> HTML()),
         card_body_fill(
 
-          "Show inlay:",
+          "Show outline:",
           switchInput(
             inputId = "show_inlay"
           )

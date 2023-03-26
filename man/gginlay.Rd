@@ -27,6 +27,9 @@ setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(
 gginlay(g, versicolor)
 gginlay(g, setosa)
 
+img = matrix(0:1, ncol = 3, nrow = 2) |> as.raster()
+gginlay(g, img)
+
 g2 = ggplot(cars, aes(y = speed, x = dist)) + geom_smooth()
 gginlay(g, g2)
 

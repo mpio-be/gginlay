@@ -2,7 +2,7 @@
 __Add inlays on a ggplot interactively.__
 
 This is a mini R package buid around [patchwork::inset_element()](https://github.com/thomasp85/patchwork). 
-When working with ggplot sometimes we want to position an inlay plot at an arbitrary location.
+Occasionally, while working with ggplot, we want to place an inlay plot at a specific location.
 Arguably `patchwork::inset_element()` offers the best solution for it
 but the exact coordinates of the inlay needs to be inputted by the user.
 

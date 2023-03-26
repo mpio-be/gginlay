@@ -5,8 +5,8 @@
   )
 
   ggplot(x) +
-    geom_line(aes(y = y, x = x), color = "red", linewidth = 0.2) +
-    geom_line(aes(y = rev(y), x = x), color = "red", linewidth = 0.2) +
+    geom_line(aes(y = y, x = x), color = "red", linewidth = 0.5) +
+    geom_line(aes(y = rev(y), x = x), color = "red", linewidth = 0.5) +
     xlab(NULL) +
     ylab(NULL) +
     scale_x_continuous(expand = c(0, 0)) +

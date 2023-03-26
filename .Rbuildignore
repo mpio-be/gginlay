@@ -1,2 +1,13 @@
 ^gginlay\.Rproj$
 ^\.Rproj\.user$
+
+^gginlay\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.vscode$
+^\.github$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
+gginlay.gif

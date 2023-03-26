@@ -37,7 +37,7 @@ gginlay <- function(g, p) {
     if(missing(p)) p_missing = TRUE
 
     ui <- grid_page(
-      theme = bs_theme(version = 5, bootswatch = "simplex"), 
+      theme = bs_theme(version = 5, bootswatch = "journal"), 
       layout = c(
         ".       topbar    controls",
         "leftbar plotarea  controls", 
@@ -51,7 +51,7 @@ gginlay <- function(g, p) {
       col_sizes = c(
         "100px",
         "450px",
-        "200px"
+        "150px"
       ),
 
       gap_size = "0px", 
@@ -186,7 +186,7 @@ gginlay <- function(g, p) {
         
         o |>
           HTML() |>
-          tags$code()
+          tags$code(style = "font-size:0.5em;")
         
 
 

@@ -180,7 +180,7 @@ gginlay <- function(g, p) {
           input$lr[1], ",", input$bt[1], ",", input$lr[2], ",", input$bt[2],
           ',align_to =', shQuote(input$align_to), 
           ',on_top =', input$on_top,
-          'ignore_tag =', input$ignore_tag,
+          ',ignore_tag =', input$ignore_tag,
           ")"
         )
         

@@ -7,11 +7,11 @@ Authors@R:
 Description: By using a shiny interface, this mini package lets you positioning insets (e.g. images or other inlays) exactly where you want them on a ggplot. To be more specific, this package generates the exact coordinates required by the patchwork::inset_element() function for the placement of the inset.
 Depends:
     R (>= 3.0.0),
-    shiny,
     ggplot2
 Imports:
     methods,
     patchwork,
+    shiny,
     shinyWidgets,
     gridlayout,
     bslib

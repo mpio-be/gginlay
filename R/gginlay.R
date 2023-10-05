@@ -8,8 +8,10 @@
 #' g = ggplot(data=iris,aes(y=Sepal.Width, x= Species)) +
 #'     geom_boxplot()
 #' 
-#' versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> jpeg::readJPEG(native = TRUE)
-#' setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(native = TRUE)
+#' versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> 
+#' jpeg::readJPEG(native = TRUE)
+#' setosa = system.file("iris", "setosa.png", package = "gginlay") |> 
+#' png::readPNG(native = TRUE)
 #' 
 #' gginlay(g, versicolor)
 #' gginlay(g, setosa)
@@ -152,7 +154,7 @@ gginlay <- function(g, p) {
           if(input$show_inlay) # TODO only for rasters
             p1 =  emptyGG(p) else p1 = p
  
-          g = g + theme(plot.margin = margin(t = 0,r = 0,b = 0,l = 0)) 
+       
 
           if (!input$on_top) g = g + theme(panel.background = element_blank())
 

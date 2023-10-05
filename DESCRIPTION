@@ -1,5 +1,5 @@
 Package: gginlay
-Title:Add Inlays on a ggplot Interactively.
+Title:Add Inlays on a ggplot Interactively
 Version: 0.0.1
 Authors@R: 
     person("Mihai", "Valcu", , "Mihai.Valcu@bi.mpg.de", role = c("aut", "cre"),

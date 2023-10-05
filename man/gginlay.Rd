@@ -21,8 +21,10 @@ if(interactive()) {
 g = ggplot(data=iris,aes(y=Sepal.Width, x= Species)) +
     geom_boxplot()
 
-versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> jpeg::readJPEG(native = TRUE)
-setosa = system.file("iris", "setosa.png", package = "gginlay") |> png::readPNG(native = TRUE)
+versicolor = system.file("iris", "versicolor.jpg", package = "gginlay") |> 
+jpeg::readJPEG(native = TRUE)
+setosa = system.file("iris", "setosa.png", package = "gginlay") |> 
+png::readPNG(native = TRUE)
 
 gginlay(g, versicolor)
 gginlay(g, setosa)

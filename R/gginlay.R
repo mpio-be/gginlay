@@ -60,7 +60,7 @@ gginlay <- function(g, p) {
 
       grid_card(
         area = "topbar",
-        card_body_fill(
+        card_body(
          
         noUiSliderInput(
           inputId = "lr",
@@ -83,7 +83,7 @@ gginlay <- function(g, p) {
 
       grid_card(
         area = "leftbar",
-        card_body_fill(
+        card_body(
           noUiSliderInput(
             inputId = "bt",
             label = NULL,
@@ -106,7 +106,7 @@ gginlay <- function(g, p) {
         area = "controls",
 
         card_header("<i>inset_element()</i><br>arguments:" |> HTML()),
-        card_body_fill(
+        card_body(
           radioButtons(
             inputId = "align_to",
             label = "align_to:",
@@ -129,7 +129,7 @@ gginlay <- function(g, p) {
         ),
         
         card_header("Inlay object:" |> HTML()),
-        card_body_fill(
+        card_body(
 
           "Show outline:",
           switchInput(
